@@ -1,0 +1,214 @@
+{
+  "parcels": [
+    {
+      "id": "PCL-2611-001",
+      "studentName": "ปวริศ วัฒนากูล",
+      "studentNickname": "ภีม",
+      "floor": "หอชาย 1 · ชั้น 3 (ม.5)",
+      "roomNumber": "308",
+      "trackingNumber": "TH0194827165B",
+      "courier": "Flash Express",
+      "senderName": "Banana IT Official",
+      "shelfSlot": "A-02",
+      "status": "WAITING",
+      "arrivedAt": "2026-11-15T11:25:00.000Z",
+      "recordedBy": "ครูสมชาย (เวรเช้า)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-15T11:25:00.000Z",
+      "notes": "กล่องอุปกรณ์อิเล็กทรอนิกส์ ระวังแตก"
+    },
+    {
+      "id": "PCL-2611-002",
+      "studentName": "ณัฐนิชา สุขสันต์",
+      "studentNickname": "มายด์",
+      "floor": "หอหญิง 2 · ชั้น 2 (ม.4)",
+      "roomNumber": "204",
+      "trackingNumber": "KEX9941203847",
+      "courier": "Kerry Express",
+      "senderName": "คุณแม่ (สุภาพร)",
+      "shelfSlot": "B-05",
+      "status": "WAITING",
+      "arrivedAt": "2026-11-16T14:25:00.000Z",
+      "recordedBy": "ครูรัตนา (เวรบ่าย)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-16T14:25:00.000Z",
+      "notes": "ของใช้ส่วนตัวและขนมจากบ้าน"
+    },
+    {
+      "id": "PCL-2611-003",
+      "studentName": "ธนกฤต อัครเดชา",
+      "studentNickname": "กฤต",
+      "floor": "หอชาย 2 · ชั้น 4 (ม.6)",
+      "roomNumber": "412",
+      "trackingNumber": "828491029384",
+      "courier": "J&T Express",
+      "senderName": "Naiin Bookstore",
+      "shelfSlot": "A-09",
+      "status": "WAITING",
+      "arrivedAt": "2026-11-19T15:25:00.000Z",
+      "recordedBy": "ครูสมชาย (เวรบ่าย)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-19T15:25:00.000Z",
+      "notes": "หนังสือเตรียมสอบ A-Level"
+    },
+    {
+      "id": "PCL-2611-004",
+      "studentName": "พิชญาภา เจริญผล",
+      "studentNickname": "แพร",
+      "floor": "หอหญิง 1 · ชั้น 3 (ม.5)",
+      "roomNumber": "311",
+      "trackingNumber": "SPXTH049182736",
+      "courier": "SPX Express",
+      "senderName": "Lazada Mall Care",
+      "shelfSlot": "C-01",
+      "status": "WAITING",
+      "arrivedAt": "2026-11-20T09:25:00.000Z",
+      "recordedBy": "ครูรัตนา (เวรเช้า)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-20T09:25:00.000Z",
+      "notes": "ซองพลาสติกสีขาว ขนาดกลาง"
+    },
+    {
+      "id": "PCL-2611-005",
+      "studentName": "วรเมธ ศิริวัฒน์",
+      "studentNickname": "เมธ",
+      "floor": "หอชาย 1 · ชั้น 2 (ม.4)",
+      "roomNumber": "215",
+      "trackingNumber": "ED492018492TH",
+      "courier": "Thailand Post",
+      "senderName": "สหกรณ์โอลิมปิกวิชาการ",
+      "shelfSlot": "D-03",
+      "status": "PICKED_UP",
+      "arrivedAt": "2026-11-18T10:25:00.000Z",
+      "pickedUpAt": "2026-11-19T17:25:00.000Z",
+      "receivedBy": "วรเมธ ศิริวัฒน์ (รับเอง)",
+      "recordedBy": "ครูสมชาย (เวรเช้า)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-18T10:25:00.000Z",
+      "notes": "ซองเอกสาร EMS"
+    },
+    {
+      "id": "PCL-2611-006",
+      "studentName": "กัญญาวีร์ พงษ์ไพบูลย์",
+      "studentNickname": "วีร์",
+      "floor": "หอหญิง 2 · ชั้น 4 (ม.6)",
+      "roomNumber": "402",
+      "trackingNumber": "LEXTH938471029",
+      "courier": "Lazada Express",
+      "senderName": "B2S Stationery",
+      "shelfSlot": "B-08",
+      "status": "PICKED_UP",
+      "arrivedAt": "2026-11-17T13:25:00.000Z",
+      "pickedUpAt": "2026-11-18T16:25:00.000Z",
+      "receivedBy": "กัญญาวีร์ พงษ์ไพบูลย์ (รับเอง)",
+      "recordedBy": "ครูรัตนา (เวรบ่าย)",
+      "lineNotified": true,
+      "lineNotifiedAt": "2026-11-17T13:25:00.000Z",
+      "notes": "อุปกรณ์วาดเขียนและสมุดโน้ต"
+    }
+  ],
+  "preRegistrations": [
+    {
+      "id": "PRE-2611-01",
+      "studentName": "กิตติพงศ์ ใจดี",
+      "floor": "หอชาย 2 · ชั้น 3",
+      "roomNumber": "304",
+      "trackingNumber": "TH0145892341A",
+      "courier": "Flash Express",
+      "senderName": "Siam Book & Supply",
+      "expectedDate": "2026-11-20",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810011",
+      "note": "แจ้งล่วงหน้าจากนักเรียน — สั่งเครื่องเขียนและสมุดแล็บ",
+      "status": "EXPECTED",
+      "createdAt": "2026-11-19T19:25:00.000Z"
+    },
+    {
+      "id": "PRE-2611-02",
+      "studentName": "ชนาธิป มั่นคง",
+      "floor": "หอชาย 1 · ชั้น 4",
+      "roomNumber": "405",
+      "trackingNumber": "KEX8831029481",
+      "courier": "Kerry Express",
+      "senderName": "SportPro Thailand",
+      "expectedDate": "2026-11-20",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810022",
+      "note": "รองเท้ากีฬาสำหรับคาบพละ",
+      "status": "EXPECTED",
+      "createdAt": "2026-11-20T08:25:00.000Z"
+    }
+  ],
+  "students": [
+    {
+      "id": "STU-001",
+      "studentName": "กิตติพงศ์ ใจดี",
+      "nickname": "ต้นกล้า",
+      "floor": "หอชาย 2 · ชั้น 3",
+      "roomNumber": "304",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810011",
+      "updatedAt": "2026-11-10T09:25:00.000Z"
+    },
+    {
+      "id": "STU-002",
+      "studentName": "ปวริศ วัฒนากูล",
+      "nickname": "ภีม",
+      "floor": "หอชาย 1 · ชั้น 3",
+      "roomNumber": "308",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810012",
+      "updatedAt": "2026-11-08T09:25:00.000Z"
+    },
+    {
+      "id": "STU-003",
+      "studentName": "ณัฐนิชา สุขสันต์",
+      "nickname": "มายด์",
+      "floor": "หอหญิง 2 · ชั้น 2",
+      "roomNumber": "204",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810013",
+      "updatedAt": "2026-11-12T10:25:00.000Z"
+    },
+    {
+      "id": "STU-004",
+      "studentName": "ธนกฤต อัครเดชา",
+      "nickname": "กฤต",
+      "floor": "หอชาย 2 · ชั้น 4",
+      "roomNumber": "412",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810014",
+      "updatedAt": "2026-11-14T11:25:00.000Z"
+    },
+    {
+      "id": "STU-005",
+      "studentName": "พิชญาภา เจริญผล",
+      "nickname": "แพร",
+      "floor": "หอหญิง 1 · ชั้น 3",
+      "roomNumber": "311",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810015",
+      "updatedAt": "2026-11-15T14:25:00.000Z"
+    }
+  ],
+  "lineLogs": [
+    {
+      "id": "LOG-001",
+      "parcelId": "PCL-2611-004",
+      "studentName": "พิชญาภา เจริญผล",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810015",
+      "message": "แจ้งเตือนพัสดุมาถึงสำนักงานหอพัก\nผู้รับ: พิชญาภา เจริญผล (ห้อง 311)\nขนส่ง: SPX Express (SPXTH049182736)\nจุดรับ: ช่องวาง C-01 กรุณารับภายใน 3 วัน",
+      "deliveryMode": "SIMULATED_QUEUE",
+      "success": true,
+      "sentAt": "2026-11-20T09:25:00.000Z"
+    },
+    {
+      "id": "LOG-002",
+      "parcelId": "PCL-2611-001",
+      "studentName": "ปวริศ วัฒนากูล",
+      "lineUserId": "U8a72bc91d04f1e2903a8f12c9d810012",
+      "message": "แจ้งเตือนพัสดุค้างรับเกิน 3 วัน\nผู้รับ: ปวริศ วัฒนากูล (ห้อง 308)\nขนส่ง: Flash Express (TH0194827165B)\nค้างรับมาแล้ว 5 วัน กรุณาติดต่อรับที่สำนักงานหอพัก",
+      "deliveryMode": "SIMULATED_QUEUE",
+      "success": true,
+      "sentAt": "2026-11-19T18:25:00.000Z"
+    }
+  ],
+  "settings": {
+    "gasWebhookUrl": "",
+    "dormOfficeName": "สำนักงานหอพักนักเรียนกลาง",
+    "overdueThresholdDays": 3
+  }
+}

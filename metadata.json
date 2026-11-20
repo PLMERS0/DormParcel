@@ -1,0 +1,6 @@
+{
+  "name": "DormParcel — ระบบจัดการพัสดุหอพัก",
+  "description": "เว็บแอปจัดการพัสดุสำนักงานหอพักนักเรียน พร้อมระบบ AI สแกนใบปะหน้าพัสดุ ค้นหาเรียลไทม์ คำนวณวันค้างรับ แจ้งเตือนผ่าน Line OA และโค้ด Google Apps Script ครบชุด",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
