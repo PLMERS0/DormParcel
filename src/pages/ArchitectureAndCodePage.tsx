@@ -17,8 +17,15 @@ import {
   FRONTEND_INDEX_HTML,
   SETUP_COLUMNS_GS,
 } from '../data/gasTemplates.ts';
+import {
+  CLOUDFLARE_SCHEMA_SQL,
+  CLOUDFLARE_WORKER_TS,
+  CLOUDFLARE_WRANGLER_TOML,
+} from '../data/cloudflareTemplates.ts';
 
-type CodeTab = 'setup' | 'backend' | 'frontend';
+type PlatformMode = 'cloudflare' | 'gas';
+type GasTab = 'setup' | 'backend' | 'frontend';
+type CfTab = 'schema' | 'wrangler' | 'worker';
 
 const DATA_FLOW_STEPS = [
   {
@@ -91,11 +98,13 @@ const SHEET_SCHEMAS = [
 ];
 
 export function ArchitectureAndCodePage() {
-  const [activeTab, setActiveTab] = useState<CodeTab>('setup');
-  const [copiedTab, setCopiedTab] = useState<CodeTab | null>(null);
+  const [platform, setPlatform] = useState<PlatformMode>('cloudflare');
+  const [gasTab, setGasTab] = useState<GasTab>('setup');
+  const [cfTab, setCfTab] = useState<CfTab>('schema');
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  const codeMap: Record<
-    CodeTab,
+  const gasCodeMap: Record<
+    GasTab,
     { filename: string; title: string; subtitle: string; content: string }
   > = {
     setup: {
@@ -121,12 +130,41 @@ export function ArchitectureAndCodePage() {
     },
   };
 
-  const currentCode = codeMap[activeTab];
+  const cfCodeMap: Record<
+    CfTab,
+    { filename: string; title: string; subtitle: string; content: string }
+  > = {
+    schema: {
+      filename: 'schema.sql',
+      title: '1. โครงสร้างฐานข้อมูล Cloudflare D1 (schema.sql)',
+      subtitle:
+        'สร้างตาราง parcels, pre_registrations, students, line_logs และ settings บน SQLite Edge Database ของ Cloudflare ทันที',
+      content: CLOUDFLARE_SCHEMA_SQL,
+    },
+    wrangler: {
+      filename: 'wrangler.toml',
+      title: '2. ค่าคอนฟิกโฮสติ้ง + D1 + Cron (wrangler.toml)',
+      subtitle:
+        'ตั้งค่าเสิร์ฟไฟล์หน้าบ้าน ./dist ผ่าน Static Assets พร้อมผูกฐานข้อมูล D1 และตั้งเวลา Cron แจ้งเตือนค้างรับทุกวัน 18:00 น.',
+      content: CLOUDFLARE_WRANGLER_TOML,
+    },
+    worker: {
+      filename: 'worker.ts',
+      title: '3. โค้ดหลังบ้าน Cloudflare Worker API (worker.ts)',
+      subtitle:
+        'รองรับทุก API ของเว็บ React ชุดนี้ทันที (/api/dashboard, /api/parcels, /api/ai/scan-label, /api/line/notify) รวมถึง Cron Trigger รายวัน',
+      content: CLOUDFLARE_WORKER_TS,
+    },
+  };
+
+  const currentCode =
+    platform === 'cloudflare' ? cfCodeMap[cfTab] : gasCodeMap[gasTab];
+  const activeKey = `${platform}-${platform === 'cloudflare' ? cfTab : gasTab}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(currentCode.content);
-    setCopiedTab(activeTab);
-    setTimeout(() => setCopiedTab(null), 2000);
+    setCopiedKey(activeKey);
+    setTimeout(() => setCopiedKey(null), 2000);
   };
 
   const handleDownload = () => {
@@ -226,44 +264,95 @@ export function ArchitectureAndCodePage() {
 
       {/* Complete Code Exporter Section */}
       <section className="surface-elevated rounded-3xl p-6 sm:p-8">
-        <div className="flex flex-col gap-4 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-b border-slate-100 pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs font-semibold text-teal-700">
-              Ready-to-Deploy Google Apps Script Bundle
+              Deployment &amp; Database Migration Bundles
             </p>
             <h2 className="mt-1 text-xl font-bold text-slate-900">
-              ชุดโค้ด Setup_Columns.gs · Code.gs · Index.html ฉบับสมบูรณ์
+              ชุดโค้ดสำหรับโฮสติ้งและฐานข้อมูล
             </h2>
           </div>
 
-          <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1">
-            {(
-              [
-                { id: 'setup', label: '1. Setup_Columns.gs' },
-                { id: 'backend', label: '2. Code.gs' },
-                { id: 'frontend', label: '3. Index.html' },
-              ] as { id: CodeTab; label: string }[]
-            ).map((tab) => (
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Platform Switcher */}
+            <div className="flex items-center gap-1 rounded-xl bg-slate-900 p-1">
               <button
-                key={tab.id}
                 type="button"
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => setPlatform('cloudflare')}
                 className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
-                  activeTab === tab.id
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                  platform === 'cloudflare'
+                    ? 'bg-teal-600 text-white shadow-sm'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
-                {tab.label}
+                Cloudflare (Workers + D1)
               </button>
-            ))}
+              <button
+                type="button"
+                onClick={() => setPlatform('gas')}
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                  platform === 'gas'
+                    ? 'bg-teal-600 text-white shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                Google Apps Script (Sheets)
+              </button>
+            </div>
+
+            {/* File Tabs */}
+            <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1">
+              {platform === 'cloudflare'
+                ? (
+                    [
+                      { id: 'schema', label: '1. schema.sql' },
+                      { id: 'wrangler', label: '2. wrangler.toml' },
+                      { id: 'worker', label: '3. worker.ts' },
+                    ] as { id: CfTab; label: string }[]
+                  ).map((tab) => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setCfTab(tab.id)}
+                      className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                        cfTab === tab.id
+                          ? 'bg-white text-slate-900 shadow-sm'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))
+                : (
+                    [
+                      { id: 'setup', label: '1. Setup_Columns.gs' },
+                      { id: 'backend', label: '2. Code.gs' },
+                      { id: 'frontend', label: '3. Index.html' },
+                    ] as { id: GasTab; label: string }[]
+                  ).map((tab) => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setGasTab(tab.id)}
+                      className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                        gasTab === tab.id
+                          ? 'bg-white text-slate-900 shadow-sm'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+            </div>
           </div>
         </div>
 
         <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900">
-              {activeTab === 'frontend' ? (
+              {(platform === 'gas' && gasTab === 'frontend') ||
+              (platform === 'cloudflare' && cfTab === 'wrangler') ? (
                 <FileCode2 className="h-4 w-4 text-teal-700" />
               ) : (
                 <Code2 className="h-4 w-4 text-teal-700" />
@@ -279,7 +368,7 @@ export function ArchitectureAndCodePage() {
               onClick={handleCopy}
               className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 cursor-pointer"
             >
-              {copiedTab === activeTab ? (
+              {copiedKey === activeKey ? (
                 <>
                   <Check className="h-3.5 w-3.5 text-emerald-400" />
                   <span>คัดลอกแล้ว</span>
@@ -315,15 +404,28 @@ export function ArchitectureAndCodePage() {
           </pre>
         </div>
 
-        <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs leading-relaxed text-slate-700">
-          <p className="font-bold text-slate-900">วิธีนำไปติดตั้งใน Google Sheets (ใช้เวลา 3 นาที):</p>
-          <ol className="mt-1.5 list-decimal space-y-1 pl-5">
-            <li>สร้าง Google Sheets ใหม่ แล้วไปที่เมนู Extensions (ส่วนขยาย) &gt; Apps Script</li>
-            <li>สร้างไฟล์สคริปต์ชื่อ Setup_Columns.gs และวางโค้ดส่วนที่ 1 จากนั้นกด Run ฟังก์ชัน setupDormParcelColumns() เพื่อให้สร้างหัวตารางทั้งหมดทันที</li>
-            <li>วางโค้ดส่วนที่ 2 ลงในไฟล์ Code.gs และสร้างไฟล์ HTML ชื่อ Index แล้ววางโค้ดส่วนที่ 3</li>
-            <li>ไปที่ Project Settings &gt; Script Properties เพิ่มคีย์ GEMINI_API_KEY และ LINE_CHANNEL_ACCESS_TOKEN แล้วกด Deploy &gt; New deployment &gt; Web app</li>
-          </ol>
-        </div>
+        {platform === 'cloudflare' ? (
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs leading-relaxed text-slate-700">
+            <p className="font-bold text-slate-900">ขั้นตอนย้ายโฮสติ้งและฐานข้อมูลไป Cloudflare Workers + D1:</p>
+            <ol className="mt-1.5 list-decimal space-y-1 pl-5">
+              <li>ติดตั้งเครื่องมือและล็อกอิน: <code className="font-mono-tabular">npm i -D wrangler && npx wrangler login</code></li>
+              <li>สร้างฐานข้อมูล D1: <code className="font-mono-tabular">npx wrangler d1 create dorm-parcel-db</code> แล้วนำ <code className="font-mono-tabular">database_id</code> ไปใส่ใน <code className="font-mono-tabular">wrangler.toml</code></li>
+              <li>สร้างตารางฐานข้อมูล: <code className="font-mono-tabular">npx wrangler d1 execute dorm-parcel-db --remote --file=./schema.sql</code></li>
+              <li>ตั้งค่า Secrets: <code className="font-mono-tabular">npx wrangler secret put GEMINI_API_KEY</code> และ <code className="font-mono-tabular">npx wrangler secret put LINE_CHANNEL_ACCESS_TOKEN</code></li>
+              <li>Build หน้าบ้านและ Deploy ขึ้น Cloudflare: <code className="font-mono-tabular">npm run build && npx wrangler deploy</code></li>
+            </ol>
+          </div>
+        ) : (
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs leading-relaxed text-slate-700">
+            <p className="font-bold text-slate-900">วิธีนำไปติดตั้งใน Google Sheets (ใช้เวลา 3 นาที):</p>
+            <ol className="mt-1.5 list-decimal space-y-1 pl-5">
+              <li>สร้าง Google Sheets ใหม่ แล้วไปที่เมนู Extensions (ส่วนขยาย) &gt; Apps Script</li>
+              <li>สร้างไฟล์สคริปต์ชื่อ Setup_Columns.gs และวางโค้ดส่วนที่ 1 จากนั้นกด Run ฟังก์ชัน setupDormParcelColumns() เพื่อให้สร้างหัวตารางทั้งหมดทันที</li>
+              <li>วางโค้ดส่วนที่ 2 ลงในไฟล์ Code.gs และสร้างไฟล์ HTML ชื่อ Index แล้ววางโค้ดส่วนที่ 3</li>
+              <li>ไปที่ Project Settings &gt; Script Properties เพิ่มคีย์ GEMINI_API_KEY และ LINE_CHANNEL_ACCESS_TOKEN แล้วกด Deploy &gt; New deployment &gt; Web app</li>
+            </ol>
+          </div>
+        )}
       </section>
     </div>
   );
